@@ -20,11 +20,11 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<UserResponse> save(@RequestBody UserRequest userRequest){
-        return ResponseEntity.ok().body(UserMapper.toUserResponse(userService.save(UserMapper.toUser(userRequest))));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toUserResponse(userService.save(UserMapper.toUser(userRequest))));
     }
 
     @GetMapping()
     public ResponseEntity<List<UserResponse>> getAll(){
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.getAll().stream().map(UserMapper::toUserResponse).toList());
+        return ResponseEntity.ok().body(userService.getAll().stream().map(UserMapper::toUserResponse).toList());
     }
 }
