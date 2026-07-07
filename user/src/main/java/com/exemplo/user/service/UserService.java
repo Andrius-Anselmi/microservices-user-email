@@ -1,6 +1,7 @@
 package com.exemplo.user.service;
 
 import com.exemplo.user.domain.UserModel;
+import com.exemplo.user.producer.UserProducer;
 import com.exemplo.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +14,13 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserProducer userProducer;
 
     @Transactional
-    public UserModel save(UserModel userModel){
-        return userRepository.save(userModel);
+    public UserModel saveAndPublish(UserModel userModel){
+        userModel = userRepository.save(userModel);
+        userProducer.publishEvent(userModel);
+        return userModel;
     }
 
     public List<UserModel> getAll(){

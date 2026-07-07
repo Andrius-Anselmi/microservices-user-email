@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<UserResponse> save(@RequestBody UserRequest userRequest){
-        return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toUserResponse(userService.save(UserMapper.toUser(userRequest))));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toUserResponse(userService.saveAndPublish(UserMapper.toUser(userRequest))));
     }
 
     @GetMapping()
