@@ -1,0 +1,17 @@
+version: '3.8'
+
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: ms-email-db
+    environment:
+      POSTGRES_DB: ${EMAIL_DB_NAME:-ms-email-ms}
+      POSTGRES_USER: ${EMAIL_DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${EMAIL_DB_PASSWORD:-postgres}
+    ports:
+      - "${EMAIL_DB_PORT:-5433}:5432"
+    volumes:
+      - pgdata:/var/lib/posgtresql/data
+volumes:
+  pgdata:
